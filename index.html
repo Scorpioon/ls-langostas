@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LOCALSCENE · Wireframer</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="desktop-shell">
+    <aside class="sidebar">
+      <div class="sidebar-head">
+        <div class="sidebar-kicker">COLLAPSE:WIREFRAMER.v0.1</div>
+        <div class="sidebar-title">LOCALSCENE</div>
+        <div class="sidebar-subtitle">Herramienta exclusiva de desktop para recorrer toda la app sin dejarte nada.</div>
+      </div>
+      <div class="tree-wrap">
+        <div class="tree-label">ÁRBOL DE PANTALLAS</div>
+        <div id="treeView" class="tree"></div>
+      </div>
+    </aside>
+
+    <section class="workspace">
+      <header class="workspace-topbar">
+        <div class="workspace-topbar-left">
+          <div class="workspace-title">Wireframe navegable</div>
+          <div class="workspace-subtitle">Desktop tool · castellano · árbol + preview móvil</div>
+        </div>
+        <div class="workspace-topbar-right">
+          <button id="homeShortcut" class="chrome-btn"><i class="bi bi-house"></i><span>Inicio</span></button>
+          <button id="toggleHintsBtn" class="chrome-btn"><i class="bi bi-cursor"></i><span>Pistas</span></button>
+        </div>
+      </header>
+
+      <div class="workspace-main">
+        <section class="preview-column">
+          <div class="preview-header">
+            <div class="preview-kicker">PREVIEW MÓVIL</div>
+            <div id="desktopScreenTitle" class="preview-screen-title">Inicio / Portada de ciudad</div>
+          </div>
+
+          <div class="phone-shell">
+            <header class="topbar">
+              <button id="backBtn" class="icon-btn interactive" aria-label="Atrás"><i class="bi bi-arrow-left"></i></button>
+              <div class="topbar-title">
+                <div class="eyebrow">LOW-FI PROTOTYPE</div>
+                <div id="screenTitle">Inicio / Portada de ciudad</div>
+              </div>
+              <button id="menuBtn" class="icon-btn interactive" aria-label="Más"><i class="bi bi-three-dots"></i></button>
+            </header>
+
+            <main id="app" class="screen"></main>
+
+            <nav class="bottom-nav">
+              <button data-nav="home" class="interactive"><i class="bi bi-house"></i><span>Inicio</span></button>
+              <button data-nav="discover" class="interactive"><i class="bi bi-compass"></i><span>Descubrir</span></button>
+              <button data-nav="activity" class="interactive"><i class="bi bi-lightning"></i><span>Actividad</span></button>
+              <button data-nav="saved" class="interactive"><i class="bi bi-bookmark"></i><span>Guardado</span></button>
+              <button data-nav="profile" class="interactive"><i class="bi bi-person"></i><span>Perfil</span></button>
+            </nav>
+          </div>
+        </section>
+
+        <aside class="notes-column">
+          <div class="notes-card">
+            <div class="notes-kicker">USO</div>
+            <div class="notes-title">Qué hace esta herramienta</div>
+            <ul class="notes-list">
+              <li>Navegar toda la app desde un árbol interactivo.</li>
+              <li>Enseñar un preview móvil rápido en reuniones.</li>
+              <li>Soportar wireframes 1:1 con la documentación.</li>
+              <li>Trabajar paso a paso sin monolito.</li>
+            </ul>
+          </div>
+          <div class="notes-card">
+            <div class="notes-kicker">REGLA</div>
+            <div class="notes-title">Lectura del sistema</div>
+            <ul class="notes-list">
+              <li>Ciudad → colectivo → evento / música → guardar / volver.</li>
+              <li>Desktop para navegación global.</li>
+              <li>Móvil para enseñar la experiencia final.</li>
+            </ul>
+          </div>
+          <div class="notes-card" id="hintCard">
+            <div class="notes-kicker">PISTAS</div>
+            <div class="notes-title">Dónde clicar</div>
+            <ul class="notes-list">
+              <li>El árbol de la izquierda abre pantallas directas.</li>
+              <li>La bottom nav mueve por las áreas base.</li>
+              <li>Las cards principales tienen micro-indicador de acción.</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="screens.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
