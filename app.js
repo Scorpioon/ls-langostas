@@ -5,17 +5,17 @@
   const treeView = document.getElementById("treeView");
   const homeShortcut = document.getElementById("homeShortcut");
   const toggleHintsBtn = document.getElementById("toggleHintsBtn");
-  const desktopShell = document.getElementById("desktopShell");
   const breadcrumbTrail = document.getElementById("breadcrumbTrail");
   const viewportStage = document.getElementById("viewportStage");
+  const workspaceStage = document.getElementById("workspaceStage");
+  const phoneShell = document.getElementById("phoneShell");
   const currentScreenKpi = document.getElementById("currentScreenKpi");
   const focusKpi = document.getElementById("focusKpi");
   const zoomKpi = document.getElementById("zoomKpi");
   const sidebarKpi = document.getElementById("sidebarKpi");
   const wfVersion = document.getElementById("wfVersion");
   const packVersion = document.getElementById("packVersion");
-  const zoomBtns = [...document.querySelectorAll(".zoom-btn[data-zoom]")];
-  const fitCenterBtn = document.getElementById("fitCenterBtn");
+  const centerViewBtn = document.getElementById("centerViewBtn");
   const sidebarTabs = [...document.querySelectorAll(".sidebar-tab")];
   const sidebarTreePanel = document.getElementById("sidebarTreePanel");
   const sidebarChangelogPanel = document.getElementById("sidebarChangelogPanel");
@@ -37,13 +37,8 @@
     sidebarKpi.textContent = state.sidebarView;
   }
 
-  function applyFocusMode() {
-    desktopShell.classList.toggle("focus-mode", !state.hintsVisible);
-  }
-
   function applyZoom() {
     window.WIREFRAMER_VIEWPORT.apply(viewportStage, state.zoom);
-    zoomBtns.forEach(btn => btn.classList.toggle("active", Number(btn.dataset.zoom) === state.zoom));
   }
 
   function applySidebarView() {
@@ -73,6 +68,14 @@
     window.WIREFRAMER_CHANGELOG.render(changelogView);
   }
 
+  function centerView() {
+    state.zoom = 1;
+    applyZoom();
+    workspaceStage.scrollTop = 0;
+    workspaceStage.scrollLeft = 0;
+    updateFooter();
+  }
+
   function setScreen(screen, push = true) {
     const renderer = LS_SCREENS[screen] || LS_SCREENS.home;
     app.innerHTML = renderer();
@@ -86,24 +89,23 @@
     renderTree();
     renderBreadcrumb();
     renderChangelog();
-    applyFocusMode();
-    applyZoom();
     applySidebarView();
+    applyZoom();
     updateFooter();
   }
 
   navBtns.forEach(btn => btn.addEventListener("click", () => setScreen(btn.dataset.nav)));
-  zoomBtns.forEach(btn => btn.addEventListener("click", () => {
-    state.zoom = Number(btn.dataset.zoom);
+  centerViewBtn.addEventListener("click", centerView);
+
+  workspaceStage.addEventListener("wheel", (e) => {
+    const wantsZoom = (e.ctrlKey || e.metaKey) && !phoneShell.contains(e.target);
+    if (!wantsZoom) return;
+    e.preventDefault();
+    state.zoom = window.WIREFRAMER_VIEWPORT.normalize(e.deltaY, state.zoom);
     applyZoom();
     updateFooter();
-  }));
-  fitCenterBtn.addEventListener("click", () => {
-    state.zoom = 1;
-    window.WIREFRAMER_VIEWPORT.fitCenter(viewportStage);
-    applyZoom();
-    updateFooter();
-  });
+  }, { passive: false });
+
   sidebarTabs.forEach(btn => btn.addEventListener("click", () => {
     state.sidebarView = btn.dataset.sidebarView;
     applySidebarView();
@@ -123,8 +125,7 @@
   homeShortcut.addEventListener("click", () => setScreen("home"));
   toggleHintsBtn.addEventListener("click", () => {
     state.hintsVisible = !state.hintsVisible;
-    applyFocusMode();
-    updateFooter();
+    focusKpi.textContent = state.hintsVisible ? "off" : "on";
   });
 
   setScreen("home", false);

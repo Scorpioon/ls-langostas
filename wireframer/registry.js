@@ -1,8 +1,8 @@
 window.WIREFRAMER_REGISTRY = {
-  version: "v0.0.2d",
-  packVersion: "v0.0.2d",
-  buildLabel: "LOCALSCENE loaded · Wireframer v0.0.2d",
-  buildSummary: "proyecto cargado · 0.0.2d rebuild · workspace-first · changelog + viewport",
+  version: "v0.0.2e",
+  packVersion: "v0.0.2e",
+  buildLabel: "LOCALSCENE loaded · Wireframer v0.0.2e",
+  buildSummary: "proyecto cargado · 0.0.2e · árbol sutil · zoom natural · breadcrumb compacta",
   titleMap: {
     home: "Inicio / Portada de ciudad",
     discover: "Descubrir",
@@ -18,9 +18,9 @@ window.WIREFRAMER_REGISTRY = {
     "create-release": "Añadir release / track"
   },
   tree: [
-    { label: "Core", items: [["home","Inicio","house","section"],["discover","Descubrir","compass","section"],["activity","Actividad","lightning","section"],["saved","Guardado","bookmark","section"],["profile","Perfil","person","section"]] },
-    { label: "Nodos", items: [["collective","Colectivo","people","screen"],["event","Evento","calendar-event","screen"],["dj","DJ","disc","screen"],["artist","Artista","vinyl","screen"]] },
-    { label: "Creación", items: [["create-event","Crear evento","calendar-plus","flow"],["create-set","Añadir set","plus-circle","flow"],["create-release","Añadir release","plus-square","flow"]] }
+    { label: "Core", items: [["home","Inicio","house",0],["discover","Descubrir","compass",1],["activity","Actividad","lightning",1],["saved","Guardado","bookmark",1],["profile","Perfil","person",1]] },
+    { label: "Nodos", items: [["collective","Colectivo","people",0],["event","Evento","calendar-event",1],["dj","DJ","disc",1],["artist","Artista","vinyl",1]] },
+    { label: "Creación", items: [["create-event","Crear evento","calendar-plus",2],["create-set","Añadir set","plus-circle",2],["create-release","Añadir release","plus-square",2]] }
   ],
   breadcrumbs: {
     home: ["home"],
@@ -37,24 +37,24 @@ window.WIREFRAMER_REGISTRY = {
     "create-release": ["home","artist","create-release"]
   },
   changelog: {
-    version: "v0.0.2d",
-    summary: "Rebuild desde 0.0.2c. Sacamos el ruido del workspace y tratamos el gris como área de trabajo.",
+    version: "v0.0.2e",
+    summary: "Compactamos el chrome y hacemos el árbol más útil sin comerse espacio.",
     blocks: [
       { title: "Nuevo en esta versión", items: [
-        "Workspace-first: todo el gris vuelve a ser stage útil.",
-        "Sidebar doble: Árbol / Changelog.",
-        "Top chrome más limpio con build label y breadcrumb arriba.",
-        "Footer fija con KPIs siempre visibles."
+        "Se elimina el panel visible de zoom: ahora el zoom es natural con Ctrl/Cmd + rueda fuera del móvil.",
+        "Un único botón centra y devuelve el viewport a 100%.",
+        "Árbol más sutil con indentación real e iconos, sin puntos ni líneas raras.",
+        "Breadcrumb compacta en una sola línea."
       ]},
       { title: "Qué mirar", items: [
-        "Si el workspace se siente más herramienta y menos página.",
-        "Si el breadcrumb ya está en el sitio correcto.",
-        "Si el panel derecho ya no invade el área de trabajo."
+        "Si el árbol ya se lee más como arquitectura.",
+        "Si la breadcrumb ocupa menos y sigue siendo útil.",
+        "Si el zoom natural se siente mejor que botones persistentes."
       ]},
-      { title: "Pendiente para 0.0.2e", items: [
-        "Jerarquía real del árbol.",
-        "Viewport más serio: fit/lock/pan refinados.",
-        "Mejor mapping de la arquitectura de app."
+      { title: "Pendiente después", items: [
+        "Refinar aún más jerarquía real del árbol.",
+        "Más inteligencia de mapeo entre pantallas y subpantallas.",
+        "Viewport avanzado solo si de verdad hace falta."
       ]}
     ]
   }

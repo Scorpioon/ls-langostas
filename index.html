@@ -42,11 +42,12 @@
         <div class="workspace-topbar-left">
           <div class="workspace-title-row">
             <div class="workspace-title">Wireframe navegable</div>
-            <div id="workspaceBuildPill" class="workspace-build-pill">LOCALSCENE loaded · Wireframer v0.0.2d</div>
+            <div id="workspaceBuildPill" class="workspace-build-pill">LOCALSCENE loaded · Wireframer v0.0.2e</div>
           </div>
-          <div id="workspaceBuildSummary" class="workspace-subtitle">Proyecto cargado · 0.0.2d rebuild · workspace-first · changelog + viewport</div>
+          <div id="workspaceBuildSummary" class="workspace-subtitle">proyecto cargado · 0.0.2e · árbol sutil · zoom natural · breadcrumb compacta</div>
         </div>
         <div class="workspace-topbar-right">
+          <button id="centerViewBtn" class="chrome-btn icon-only" title="Centrar y resetear vista"><i class="bi bi-bounding-box-circles"></i></button>
           <button id="homeShortcut" class="chrome-btn"><i class="bi bi-house"></i><span>Inicio</span></button>
           <button id="toggleHintsBtn" class="chrome-btn"><i class="bi bi-funnel"></i><span>Focus</span></button>
         </div>
@@ -54,24 +55,15 @@
 
       <section class="workspace-toolbar">
         <div class="toolbar-breadcrumb">
-          <div class="meta-kicker">HILO DE ARIADNA</div>
+          <div class="meta-kicker">RUTA</div>
           <div id="breadcrumbTrail" class="breadcrumb-trail"></div>
-        </div>
-        <div class="toolbar-viewport">
-          <div class="meta-kicker">VIEWPORT</div>
-          <div class="viewport-controls">
-            <button id="fitCenterBtn" class="zoom-btn"><i class="bi bi-arrows-angle-expand"></i><span>Fit</span></button>
-            <button class="zoom-btn" data-zoom="0.75">75%</button>
-            <button class="zoom-btn active" data-zoom="1">100%</button>
-            <button class="zoom-btn" data-zoom="1.25">125%</button>
-          </div>
         </div>
       </section>
 
-      <main class="workspace-stage">
+      <main id="workspaceStage" class="workspace-stage">
         <div class="stage-inner">
           <div id="viewportStage" class="viewport-stage" style="--phone-scale:1;">
-            <div class="phone-shell">
+            <div id="phoneShell" class="phone-shell">
               <header class="topbar">
                 <button id="backBtn" class="icon-btn interactive" aria-label="Atrás"><i class="bi bi-arrow-left"></i></button>
                 <div class="topbar-title">
@@ -96,8 +88,8 @@
       </main>
 
       <footer class="workspace-footer">
-        <div class="footer-pill"><span class="footer-label">Wireframer</span><strong id="wfVersion">v0.0.2d</strong></div>
-        <div class="footer-pill"><span class="footer-label">Pack</span><strong id="packVersion">v0.0.2d</strong></div>
+        <div class="footer-pill"><span class="footer-label">Wireframer</span><strong id="wfVersion">v0.0.2e</strong></div>
+        <div class="footer-pill"><span class="footer-label">Pack</span><strong id="packVersion">v0.0.2e</strong></div>
         <div class="footer-pill"><span class="footer-label">Pantalla</span><strong id="currentScreenKpi">home</strong></div>
         <div class="footer-pill"><span class="footer-label">Focus</span><strong id="focusKpi">off</strong></div>
         <div class="footer-pill"><span class="footer-label">Zoom</span><strong id="zoomKpi">100%</strong></div>

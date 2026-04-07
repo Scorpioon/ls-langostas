@@ -3,11 +3,10 @@ window.WIREFRAMER_TREEVIEW = {
     treeView.innerHTML = window.WIREFRAMER_REGISTRY.tree.map(group => `
       <div class="tree-group">
         <div class="tree-group-label">${group.label}</div>
-        ${group.items.map(([id, label, icon, kind]) => `
-          <button class="tree-item kind-${kind || "screen"} ${current === id ? "active" : ""}" data-tree-go="${id}">
-            <span class="tree-bullet ${kind || "screen"}"></span>
-            <i class="bi bi-${icon}"></i>
-            <span>${label}</span>
+        ${group.items.map(([id, label, icon, level]) => `
+          <button class="tree-item level-${level || 0} ${current === id ? "active" : ""}" data-tree-go="${id}">
+            <span class="tree-icon"><i class="bi bi-${icon}"></i></span>
+            <span class="tree-label-text">${label}</span>
           </button>
         `).join("")}
       </div>

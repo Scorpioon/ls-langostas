@@ -1,11 +1,9 @@
-LOCALSCENE / COLLAPSE:WIREFRAMER.v0.1 / v0.0.2d
-
-Rebuild desde 0.0.2c.
+LOCALSCENE / COLLAPSE:WIREFRAMER.v0.1 / v0.0.2e
 
 This pass:
-- workspace-first rebuild
-- top chrome simplified
-- breadcrumb kept in top toolbar area
-- right info column removed from workspace
-- sidebar now owns tree / changelog
-- footer remains fixed and visible
+- remove visible viewport controls except center/reset icon
+- Ctrl/Cmd + wheel outside phone = zoom
+- phone wheel keeps normal scroll
+- tree becomes more subtle using indentation and icons
+- breadcrumb becomes compact single-line tags
+- lower radius across controls and panels
