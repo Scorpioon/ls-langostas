@@ -9,13 +9,14 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="desktop-shell">
+  <div id="desktopShell" class="desktop-shell">
     <aside class="sidebar">
       <div class="sidebar-head">
         <div class="sidebar-kicker">COLLAPSE:WIREFRAMER.v0.1</div>
         <div class="sidebar-title">LOCALSCENE</div>
         <div class="sidebar-subtitle">Herramienta exclusiva de desktop para recorrer toda la app sin dejarte nada.</div>
       </div>
+
       <div class="tree-wrap">
         <div class="tree-label">ÁRBOL DE PANTALLAS</div>
         <div id="treeView" class="tree"></div>
@@ -30,9 +31,24 @@
         </div>
         <div class="workspace-topbar-right">
           <button id="homeShortcut" class="chrome-btn"><i class="bi bi-house"></i><span>Inicio</span></button>
-          <button id="toggleHintsBtn" class="chrome-btn"><i class="bi bi-cursor"></i><span>Pistas</span></button>
+          <button id="toggleHintsBtn" class="chrome-btn"><i class="bi bi-funnel"></i><span>Focus</span></button>
         </div>
       </header>
+
+      <section class="workspace-meta">
+        <div class="breadcrumb-card">
+          <div class="meta-kicker">HILO DE ARIADNA</div>
+          <div id="breadcrumbTrail" class="breadcrumb-trail"></div>
+        </div>
+        <div class="controls-card">
+          <div class="meta-kicker">VIEWPORT</div>
+          <div class="zoom-controls">
+            <button class="zoom-btn" data-zoom="0.75">75%</button>
+            <button class="zoom-btn active" data-zoom="1">100%</button>
+            <button class="zoom-btn" data-zoom="1.25">125%</button>
+          </div>
+        </div>
+      </section>
 
       <div class="workspace-main">
         <section class="preview-column">
@@ -41,29 +57,33 @@
             <div id="desktopScreenTitle" class="preview-screen-title">Inicio / Portada de ciudad</div>
           </div>
 
-          <div class="phone-shell">
-            <header class="topbar">
-              <button id="backBtn" class="icon-btn interactive" aria-label="Atrás"><i class="bi bi-arrow-left"></i></button>
-              <div class="topbar-title">
-                <div class="eyebrow">LOW-FI PROTOTYPE</div>
-                <div id="screenTitle">Inicio / Portada de ciudad</div>
+          <div class="canvas-board">
+            <div id="viewportStage" class="viewport-stage" style="--phone-scale:1;">
+              <div class="phone-shell">
+                <header class="topbar">
+                  <button id="backBtn" class="icon-btn interactive" aria-label="Atrás"><i class="bi bi-arrow-left"></i></button>
+                  <div class="topbar-title">
+                    <div class="eyebrow">LOW-FI PROTOTYPE</div>
+                    <div id="screenTitle">Inicio / Portada de ciudad</div>
+                  </div>
+                  <button id="menuBtn" class="icon-btn interactive" aria-label="Más"><i class="bi bi-three-dots"></i></button>
+                </header>
+
+                <main id="app" class="screen"></main>
+
+                <nav class="bottom-nav">
+                  <button data-nav="home" class="interactive"><i class="bi bi-house"></i><span>Inicio</span></button>
+                  <button data-nav="discover" class="interactive"><i class="bi bi-compass"></i><span>Descubrir</span></button>
+                  <button data-nav="activity" class="interactive"><i class="bi bi-lightning"></i><span>Actividad</span></button>
+                  <button data-nav="saved" class="interactive"><i class="bi bi-bookmark"></i><span>Guardado</span></button>
+                  <button data-nav="profile" class="interactive"><i class="bi bi-person"></i><span>Perfil</span></button>
+                </nav>
               </div>
-              <button id="menuBtn" class="icon-btn interactive" aria-label="Más"><i class="bi bi-three-dots"></i></button>
-            </header>
-
-            <main id="app" class="screen"></main>
-
-            <nav class="bottom-nav">
-              <button data-nav="home" class="interactive"><i class="bi bi-house"></i><span>Inicio</span></button>
-              <button data-nav="discover" class="interactive"><i class="bi bi-compass"></i><span>Descubrir</span></button>
-              <button data-nav="activity" class="interactive"><i class="bi bi-lightning"></i><span>Actividad</span></button>
-              <button data-nav="saved" class="interactive"><i class="bi bi-bookmark"></i><span>Guardado</span></button>
-              <button data-nav="profile" class="interactive"><i class="bi bi-person"></i><span>Perfil</span></button>
-            </nav>
+            </div>
           </div>
         </section>
 
-        <aside class="notes-column">
+        <aside id="notesColumn" class="notes-column">
           <div class="notes-card">
             <div class="notes-kicker">USO</div>
             <div class="notes-title">Qué hace esta herramienta</div>
@@ -74,6 +94,7 @@
               <li>Trabajar paso a paso sin monolito.</li>
             </ul>
           </div>
+
           <div class="notes-card">
             <div class="notes-kicker">REGLA</div>
             <div class="notes-title">Lectura del sistema</div>
@@ -83,6 +104,7 @@
               <li>Móvil para enseñar la experiencia final.</li>
             </ul>
           </div>
+
           <div class="notes-card" id="hintCard">
             <div class="notes-kicker">PISTAS</div>
             <div class="notes-title">Dónde clicar</div>
@@ -94,11 +116,25 @@
           </div>
         </aside>
       </div>
+
+      <footer class="workspace-footer">
+        <div class="footer-pill"><span class="footer-label">Wireframer</span><strong id="wfVersion">v0.0.2c</strong></div>
+        <div class="footer-pill"><span class="footer-label">Pack</span><strong id="packVersion">v0.0.2c</strong></div>
+        <div class="footer-pill"><span class="footer-label">Pantalla</span><strong id="currentScreenKpi">home</strong></div>
+        <div class="footer-pill"><span class="footer-label">Focus</span><strong id="focusKpi">off</strong></div>
+        <div class="footer-pill"><span class="footer-label">Zoom</span><strong id="zoomKpi">100%</strong></div>
+        <div class="footer-pill"><span class="footer-label">Modo</span><strong>desktop-tool</strong></div>
+      </footer>
     </section>
   </div>
 
   <script src="data.js"></script>
-  <script src="screens.js"></script>
+  <script src="wireframer/registry.js"></script>
+  <script src="app-wireframes/screens.js"></script>
+  <script src="wireframer/treeview.js"></script>
+  <script src="wireframer/ui-state.js"></script>
+  <script src="wireframer/breadcrumb.js"></script>
+  <script src="wireframer/viewport.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
