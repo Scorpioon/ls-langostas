@@ -6,6 +6,8 @@
   const mapView = document.getElementById("mapView");
   const homeShortcut = document.getElementById("homeShortcut");
   const toggleHintsBtn = document.getElementById("toggleHintsBtn");
+  const routeBackBtn = document.getElementById("routeBackBtn");
+  const routeHomeBtn = document.getElementById("routeHomeBtn");
   const breadcrumbTrail = document.getElementById("breadcrumbTrail");
   const viewportStage = document.getElementById("viewportStage");
   const workspaceStage = document.getElementById("workspaceStage");
@@ -86,6 +88,16 @@
     updateFooter();
   }
 
+  function goBack() {
+    if (state.history.length > 1) {
+      state.history.pop();
+      const prev = state.history.pop() || "home";
+      setScreen(prev);
+    } else {
+      setScreen("home", false);
+    }
+  }
+
   function setScreen(screen, push = true) {
     const renderer = LS_SCREENS[screen] || LS_SCREENS.home;
     app.innerHTML = renderer();
@@ -107,6 +119,8 @@
 
   navBtns.forEach(btn => btn.addEventListener("click", () => setScreen(btn.dataset.nav)));
   centerViewBtn.addEventListener("click", centerView);
+  routeBackBtn.addEventListener("click", goBack);
+  routeHomeBtn.addEventListener("click", () => setScreen("home"));
 
   document.addEventListener("wheel", (e) => {
     const insideTool = desktopShell.contains(e.target);
@@ -124,16 +138,7 @@
     updateFooter();
   }));
 
-  backBtn.addEventListener("click", () => {
-    if (state.history.length > 1) {
-      state.history.pop();
-      const prev = state.history.pop() || "home";
-      setScreen(prev);
-    } else {
-      setScreen("home", false);
-    }
-  });
-
+  backBtn.addEventListener("click", goBack);
   homeShortcut.addEventListener("click", () => setScreen("home"));
   toggleHintsBtn.addEventListener("click", () => {
     state.focusMode = !state.focusMode;
