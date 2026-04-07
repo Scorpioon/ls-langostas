@@ -1,9 +1,9 @@
-LOCALSCENE / COLLAPSE:WIREFRAMER.v0.1 / v0.0.2e
+LOCALSCENE / COLLAPSE:WIREFRAMER.v0.1 / v0.0.2f
 
 This pass:
-- remove visible viewport controls except center/reset icon
-- Ctrl/Cmd + wheel outside phone = zoom
-- phone wheel keeps normal scroll
-- tree becomes more subtle using indentation and icons
-- breadcrumb becomes compact single-line tags
-- lower radius across controls and panels
+- route current / app map / changelog sidebar views
+- compact floating breadcrumb
+- ctrl/cmd + wheel zoom anywhere in tool
+- center/reset icon only
+- real focus mode
+- smaller footer and softer borders

@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LOCALSCENE · Wireframer</title>
+  <title>LOCALSCENE Â· Wireframer</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div id="desktopShell" class="desktop-shell">
-    <aside class="sidebar">
+    <aside id="sidebar" class="sidebar">
       <div class="sidebar-head">
         <div class="sidebar-kicker">COLLAPSE:WIREFRAMER.v0.1</div>
         <div class="sidebar-title">LOCALSCENE</div>
@@ -18,33 +18,32 @@
       </div>
 
       <div class="sidebar-tabs">
-        <button class="sidebar-tab active" data-sidebar-view="tree"><i class="bi bi-diagram-3"></i><span>Árbol</span></button>
+        <button class="sidebar-tab active" data-sidebar-view="route"><i class="bi bi-signpost-split"></i><span>Ruta actual</span></button>
+        <button class="sidebar-tab" data-sidebar-view="map"><i class="bi bi-diagram-3"></i><span>Mapa app</span></button>
         <button class="sidebar-tab" data-sidebar-view="changelog"><i class="bi bi-journal-text"></i><span>Changelog</span></button>
       </div>
 
-      <div id="sidebarTreePanel" class="sidebar-panel">
-        <div class="sidebar-card">
-          <div class="sidebar-card-kicker">ÁRBOL DE PANTALLAS</div>
-          <div id="treeView" class="tree"></div>
-        </div>
+      <div id="sidebarRoutePanel" class="sidebar-panel">
+        <div class="sidebar-panel-head">RUTA ACTUAL</div>
+        <div id="routeView" class="tree"></div>
+      </div>
+
+      <div id="sidebarMapPanel" class="sidebar-panel hidden">
+        <div class="sidebar-panel-head">MAPA APP</div>
+        <div id="mapView" class="tree"></div>
       </div>
 
       <div id="sidebarChangelogPanel" class="sidebar-panel hidden">
-        <div class="sidebar-card">
-          <div class="sidebar-card-kicker">CHANGELOG</div>
-          <div id="changelogView" class="changelog-view"></div>
-        </div>
+        <div class="sidebar-panel-head">CHANGELOG</div>
+        <div id="changelogView" class="changelog-view"></div>
       </div>
     </aside>
 
     <section class="workspace">
       <header class="workspace-topbar">
         <div class="workspace-topbar-left">
-          <div class="workspace-title-row">
-            <div class="workspace-title">Wireframe navegable</div>
-            <div id="workspaceBuildPill" class="workspace-build-pill">LOCALSCENE loaded · Wireframer v0.0.2e</div>
-          </div>
-          <div id="workspaceBuildSummary" class="workspace-subtitle">proyecto cargado · 0.0.2e · árbol sutil · zoom natural · breadcrumb compacta</div>
+          <div class="workspace-title">Wireframe navegable</div>
+          <div id="workspaceBuildSummary" class="workspace-subtitle">proyecto cargado Â· v0.0.2f Â· ruta actual + mapa app Â· zoom natural</div>
         </div>
         <div class="workspace-topbar-right">
           <button id="centerViewBtn" class="chrome-btn icon-only" title="Centrar y resetear vista"><i class="bi bi-bounding-box-circles"></i></button>
@@ -53,24 +52,21 @@
         </div>
       </header>
 
-      <section class="workspace-toolbar">
-        <div class="toolbar-breadcrumb">
-          <div class="meta-kicker">RUTA</div>
+      <main id="workspaceStage" class="workspace-stage">
+        <div class="breadcrumb-overlay">
           <div id="breadcrumbTrail" class="breadcrumb-trail"></div>
         </div>
-      </section>
 
-      <main id="workspaceStage" class="workspace-stage">
         <div class="stage-inner">
           <div id="viewportStage" class="viewport-stage" style="--phone-scale:1;">
             <div id="phoneShell" class="phone-shell">
               <header class="topbar">
-                <button id="backBtn" class="icon-btn interactive" aria-label="Atrás"><i class="bi bi-arrow-left"></i></button>
+                <button id="backBtn" class="icon-btn interactive" aria-label="AtrÃ¡s"><i class="bi bi-arrow-left"></i></button>
                 <div class="topbar-title">
                   <div class="eyebrow">LOW-FI PROTOTYPE</div>
                   <div id="screenTitle">Inicio / Portada de ciudad</div>
                 </div>
-                <button id="menuBtn" class="icon-btn interactive" aria-label="Más"><i class="bi bi-three-dots"></i></button>
+                <button id="menuBtn" class="icon-btn interactive" aria-label="MÃ¡s"><i class="bi bi-three-dots"></i></button>
               </header>
 
               <main id="app" class="screen"></main>
@@ -88,13 +84,12 @@
       </main>
 
       <footer class="workspace-footer">
-        <div class="footer-pill"><span class="footer-label">Wireframer</span><strong id="wfVersion">v0.0.2e</strong></div>
-        <div class="footer-pill"><span class="footer-label">Pack</span><strong id="packVersion">v0.0.2e</strong></div>
-        <div class="footer-pill"><span class="footer-label">Pantalla</span><strong id="currentScreenKpi">home</strong></div>
-        <div class="footer-pill"><span class="footer-label">Focus</span><strong id="focusKpi">off</strong></div>
-        <div class="footer-pill"><span class="footer-label">Zoom</span><strong id="zoomKpi">100%</strong></div>
-        <div class="footer-pill"><span class="footer-label">Sidebar</span><strong id="sidebarKpi">tree</strong></div>
-        <div class="footer-pill"><span class="footer-label">Modo</span><strong>desktop-tool</strong></div>
+        <div class="footer-pill"><span class="footer-label">WF</span><strong id="wfVersion">v0.0.2f</strong></div>
+        <div class="footer-pill"><span class="footer-label">PACK</span><strong id="packVersion">v0.0.2f</strong></div>
+        <div class="footer-pill"><span class="footer-label">PAGE</span><strong id="currentScreenKpi">home</strong></div>
+        <div class="footer-pill"><span class="footer-label">FOCUS</span><strong id="focusKpi">off</strong></div>
+        <div class="footer-pill"><span class="footer-label">ZOOM</span><strong id="zoomKpi">100%</strong></div>
+        <div class="footer-pill"><span class="footer-label">VIEW</span><strong id="sidebarKpi">route</strong></div>
       </footer>
     </section>
   </div>

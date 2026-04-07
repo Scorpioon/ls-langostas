@@ -2,13 +2,14 @@
   const app = document.getElementById("app");
   const backBtn = document.getElementById("backBtn");
   const title = document.getElementById("screenTitle");
-  const treeView = document.getElementById("treeView");
+  const routeView = document.getElementById("routeView");
+  const mapView = document.getElementById("mapView");
   const homeShortcut = document.getElementById("homeShortcut");
   const toggleHintsBtn = document.getElementById("toggleHintsBtn");
   const breadcrumbTrail = document.getElementById("breadcrumbTrail");
   const viewportStage = document.getElementById("viewportStage");
   const workspaceStage = document.getElementById("workspaceStage");
-  const phoneShell = document.getElementById("phoneShell");
+  const desktopShell = document.getElementById("desktopShell");
   const currentScreenKpi = document.getElementById("currentScreenKpi");
   const focusKpi = document.getElementById("focusKpi");
   const zoomKpi = document.getElementById("zoomKpi");
@@ -17,24 +18,27 @@
   const packVersion = document.getElementById("packVersion");
   const centerViewBtn = document.getElementById("centerViewBtn");
   const sidebarTabs = [...document.querySelectorAll(".sidebar-tab")];
-  const sidebarTreePanel = document.getElementById("sidebarTreePanel");
+  const sidebarRoutePanel = document.getElementById("sidebarRoutePanel");
+  const sidebarMapPanel = document.getElementById("sidebarMapPanel");
   const sidebarChangelogPanel = document.getElementById("sidebarChangelogPanel");
   const changelogView = document.getElementById("changelogView");
-  const buildPill = document.getElementById("workspaceBuildPill");
   const buildSummary = document.getElementById("workspaceBuildSummary");
   const navBtns = [...document.querySelectorAll(".bottom-nav button")];
   const state = window.WIREFRAMER_UISTATE.create();
 
   wfVersion.textContent = window.WIREFRAMER_REGISTRY.version;
   packVersion.textContent = window.WIREFRAMER_REGISTRY.packVersion;
-  buildPill.textContent = window.WIREFRAMER_REGISTRY.buildLabel;
   buildSummary.textContent = window.WIREFRAMER_REGISTRY.buildSummary;
 
   function updateFooter() {
     currentScreenKpi.textContent = state.current;
-    focusKpi.textContent = state.hintsVisible ? "off" : "on";
+    focusKpi.textContent = state.focusMode ? "on" : "off";
     zoomKpi.textContent = `${Math.round(state.zoom * 100)}%`;
     sidebarKpi.textContent = state.sidebarView;
+  }
+
+  function applyFocusMode() {
+    desktopShell.classList.toggle("focus-mode", state.focusMode);
   }
 
   function applyZoom() {
@@ -43,7 +47,8 @@
 
   function applySidebarView() {
     sidebarTabs.forEach(btn => btn.classList.toggle("active", btn.dataset.sidebarView === state.sidebarView));
-    sidebarTreePanel.classList.toggle("hidden", state.sidebarView !== "tree");
+    sidebarRoutePanel.classList.toggle("hidden", state.sidebarView !== "route");
+    sidebarMapPanel.classList.toggle("hidden", state.sidebarView !== "map");
     sidebarChangelogPanel.classList.toggle("hidden", state.sidebarView !== "changelog");
   }
 
@@ -56,8 +61,11 @@
     });
   }
 
-  function renderTree() {
-    window.WIREFRAMER_TREEVIEW.render(treeView, state.current, setScreen);
+  function renderTrees() {
+    const routeGroups = window.WIREFRAMER_REGISTRY.routeView[state.current] || window.WIREFRAMER_REGISTRY.routeView.home;
+    const mapGroups = window.WIREFRAMER_REGISTRY.appMapView;
+    window.WIREFRAMER_TREEVIEW.render(routeView, routeGroups, state.current, setScreen);
+    window.WIREFRAMER_TREEVIEW.render(mapView, mapGroups, state.current, setScreen);
   }
 
   function renderBreadcrumb() {
@@ -71,8 +79,10 @@
   function centerView() {
     state.zoom = 1;
     applyZoom();
-    workspaceStage.scrollTop = 0;
-    workspaceStage.scrollLeft = 0;
+    const maxTop = Math.max(0, workspaceStage.scrollHeight - workspaceStage.clientHeight);
+    const maxLeft = Math.max(0, workspaceStage.scrollWidth - workspaceStage.clientWidth);
+    workspaceStage.scrollTop = maxTop / 2;
+    workspaceStage.scrollLeft = maxLeft / 2;
     updateFooter();
   }
 
@@ -86,10 +96,11 @@
     navBtns.forEach(btn => btn.classList.toggle("active", btn.dataset.nav === screen));
     app.scrollTop = 0;
     wireEvents();
-    renderTree();
+    renderTrees();
     renderBreadcrumb();
     renderChangelog();
     applySidebarView();
+    applyFocusMode();
     applyZoom();
     updateFooter();
   }
@@ -97,8 +108,9 @@
   navBtns.forEach(btn => btn.addEventListener("click", () => setScreen(btn.dataset.nav)));
   centerViewBtn.addEventListener("click", centerView);
 
-  workspaceStage.addEventListener("wheel", (e) => {
-    const wantsZoom = (e.ctrlKey || e.metaKey) && !phoneShell.contains(e.target);
+  document.addEventListener("wheel", (e) => {
+    const insideTool = desktopShell.contains(e.target);
+    const wantsZoom = insideTool && (e.ctrlKey || e.metaKey);
     if (!wantsZoom) return;
     e.preventDefault();
     state.zoom = window.WIREFRAMER_VIEWPORT.normalize(e.deltaY, state.zoom);
@@ -124,8 +136,9 @@
 
   homeShortcut.addEventListener("click", () => setScreen("home"));
   toggleHintsBtn.addEventListener("click", () => {
-    state.hintsVisible = !state.hintsVisible;
-    focusKpi.textContent = state.hintsVisible ? "off" : "on";
+    state.focusMode = !state.focusMode;
+    applyFocusMode();
+    updateFooter();
   });
 
   setScreen("home", false);

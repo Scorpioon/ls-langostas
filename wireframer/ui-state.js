@@ -3,9 +3,9 @@ window.WIREFRAMER_UISTATE = {
     return {
       current: "home",
       history: ["home"],
-      hintsVisible: true,
+      focusMode: false,
       zoom: 1,
-      sidebarView: "tree"
+      sidebarView: "route"
     };
   }
 };

@@ -1,6 +1,6 @@
 window.WIREFRAMER_TREEVIEW = {
-  render(treeView, current, onSelect) {
-    treeView.innerHTML = window.WIREFRAMER_REGISTRY.tree.map(group => `
+  render(treeView, groups, current, onSelect) {
+    treeView.innerHTML = groups.map(group => `
       <div class="tree-group">
         <div class="tree-group-label">${group.label}</div>
         ${group.items.map(([id, label, icon, level]) => `
