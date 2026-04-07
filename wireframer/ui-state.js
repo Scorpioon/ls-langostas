@@ -4,7 +4,8 @@ window.WIREFRAMER_UISTATE = {
       current: "home",
       history: ["home"],
       hintsVisible: true,
-      zoom: 1
+      zoom: 1,
+      sidebarView: "tree"
     };
   }
 };
