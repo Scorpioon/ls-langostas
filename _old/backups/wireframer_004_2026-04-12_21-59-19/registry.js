@@ -13,9 +13,9 @@ window.WIREFRAMER_REGISTRY = {
     "create-set": { pageId: "create-set", label: "Create set", title: "Anadir set / mix" },
     "create-release": { pageId: "create-release", label: "Create release", title: "Anadir release / track" }
   },
-  version: "v0.0.4a",
-  packVersion: "v0.0.4a",
-  buildSummary: "project loaded - v0.0.4a - route panel cleanup + changelog sync hotfix",
+  version: "v0.0.3g",
+  packVersion: "v0.0.3g",
+  buildSummary: "project loaded - v0.0.3g - navigation truth pass + changelog sync hotfix",
   titleMap: {
     home: "Inicio / Portada de ciudad",
     discover: "Descubrir",
@@ -121,23 +121,24 @@ window.WIREFRAMER_REGISTRY = {
     ]
   },
   appMapView: [
-    { label: "FOUNDATION", items: [["home","Inicio","house",0],["discover","Descubrir","compass",1],["activity","Actividad","lightning",1],["saved","Guardado","bookmark",1],["profile","Perfil","person",1]] },
-    { label: "SCENE GRAPH", items: [["collective","Colectivo","people",0],["event","Evento","calendar-event",1],["dj","DJ","disc",1],["artist","Artista","vinyl",1]] },
-    { label: "CREATION FLOWS", items: [["create-event","Crear evento","calendar-plus",1],["create-set","Anadir set","plus-circle",2],["create-release","Anadir release","plus-square",2]] }
+    { label: "Inicio", items: [["home","Inicio","house",0],["discover","Descubrir","compass",1],["activity","Actividad","lightning",1],["saved","Guardado","bookmark",1],["profile","Perfil","person",1]] },
+    { label: "Escena", items: [["collective","Colectivo","people",0],["event","Evento","calendar-event",1],["dj","DJ","disc",1],["artist","Artista","vinyl",1]] },
+    { label: "Creacion", items: [["create-event","Crear evento","calendar-plus",0],["create-set","Anadir set","plus-circle",0],["create-release","Anadir release","plus-square",0]] }
   ],
   changelog: {
-    summary: "Route panel cleanup improves reading: route current stays structural, open paths stay actionable, app map feels more honest.",
+    summary: "Navigation truth pass: route current, open paths and app map now tell different but coherent truths.",
     blocks: [
-      { title: "Closeout v0.0.4a", items: [
-        "Visible version bump synced across title, summary, footer, registry, changelog and hotfix state.",
-        "Route current and open paths are still separate, now with cleaner reading intent.",
-        "App map grouping refined to better match the loaded project hierarchy.",
-        "Route-up, feedback and note persistence remain untouched in this pass."
+      { title: "Closeout v0.0.3g", items: [
+        "Visible version bump synced across title, summary, footer, registry and changelog.",
+        "Route current now reflects structural hierarchy instead of available actions.",
+        "Open paths remain visible but are separated from route current.",
+        "Route-up shares the same breadcrumb truth as route current.",
+        "App map reviewed to align better with the loaded project structure."
       ]},
       { title: "Checks", items: [
-        "Verify route current reads as structural context.",
-        "Verify open paths still feel like live available actions.",
-        "Verify app map no longer feels arbitrarily grouped after the hotfix."
+        "Verify route current remains stable while open paths vary by screen.",
+        "Verify route-up goes to breadcrumb parent.",
+        "Verify footer WF and PACK no longer show stale versions."
       ]}
     ]
   }

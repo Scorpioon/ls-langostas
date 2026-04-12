@@ -13,9 +13,9 @@ window.WIREFRAMER_REGISTRY = {
     "create-set": { pageId: "create-set", label: "Create set", title: "Anadir set / mix" },
     "create-release": { pageId: "create-release", label: "Create release", title: "Anadir release / track" }
   },
-  version: "v0.0.4a",
-  packVersion: "v0.0.4a",
-  buildSummary: "project loaded - v0.0.4a - route panel cleanup + changelog sync hotfix",
+  version: "v0.0.4",
+  packVersion: "v0.0.4",
+  buildSummary: "project loaded - v0.0.4 - route panel cleanup + map truth refinement",
   titleMap: {
     home: "Inicio / Portada de ciudad",
     discover: "Descubrir",
@@ -128,8 +128,8 @@ window.WIREFRAMER_REGISTRY = {
   changelog: {
     summary: "Route panel cleanup improves reading: route current stays structural, open paths stay actionable, app map feels more honest.",
     blocks: [
-      { title: "Closeout v0.0.4a", items: [
-        "Visible version bump synced across title, summary, footer, registry, changelog and hotfix state.",
+      { title: "Closeout v0.0.4", items: [
+        "Visible version bump synced across title, summary, footer, registry and changelog.",
         "Route current and open paths are still separate, now with cleaner reading intent.",
         "App map grouping refined to better match the loaded project hierarchy.",
         "Route-up, feedback and note persistence remain untouched in this pass."
@@ -137,7 +137,7 @@ window.WIREFRAMER_REGISTRY = {
       { title: "Checks", items: [
         "Verify route current reads as structural context.",
         "Verify open paths still feel like live available actions.",
-        "Verify app map no longer feels arbitrarily grouped after the hotfix."
+        "Verify app map no longer feels arbitrarily grouped."
       ]}
     ]
   }
