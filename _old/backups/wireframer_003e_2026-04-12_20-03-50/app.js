@@ -56,9 +56,13 @@
   }
 
   function getParentRoute(screen) {
-    const crumbs = window.WIREFRAMER_REGISTRY.breadcrumbs?.[screen] || ["home"];
-    if (crumbs.length <= 1) return "home";
-    return crumbs[crumbs.length - 2] || "home";
+    const routeGroups = window.WIREFRAMER_REGISTRY.routeView[screen] || [];
+    for (const group of routeGroups) {
+      if (Array.isArray(group.items) && group.items.length > 0) {
+        return group.items[0][0];
+      }
+    }
+    return "home";
   }
 
   function applyPageIdentity(screen) {
@@ -91,10 +95,7 @@
   }
 
   function renderTrees() {
-    const routeGroups = [
-      ...(window.WIREFRAMER_REGISTRY.routeView[state.current] || window.WIREFRAMER_REGISTRY.routeView.home),
-      ...(window.WIREFRAMER_REGISTRY.openPathsView[state.current] || [])
-    ];
+    const routeGroups = window.WIREFRAMER_REGISTRY.routeView[state.current] || window.WIREFRAMER_REGISTRY.routeView.home;
     const mapGroups = window.WIREFRAMER_REGISTRY.appMapView;
     window.WIREFRAMER_TREEVIEW.render(routeView, routeGroups, state.current, setScreen);
     window.WIREFRAMER_TREEVIEW.render(mapView, mapGroups, state.current, setScreen);

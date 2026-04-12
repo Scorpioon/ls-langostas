@@ -91,10 +91,7 @@
   }
 
   function renderTrees() {
-    const routeGroups = [
-      ...(window.WIREFRAMER_REGISTRY.routeView[state.current] || window.WIREFRAMER_REGISTRY.routeView.home),
-      ...(window.WIREFRAMER_REGISTRY.openPathsView[state.current] || [])
-    ];
+    const routeGroups = window.WIREFRAMER_REGISTRY.routeView[state.current] || window.WIREFRAMER_REGISTRY.routeView.home;
     const mapGroups = window.WIREFRAMER_REGISTRY.appMapView;
     window.WIREFRAMER_TREEVIEW.render(routeView, routeGroups, state.current, setScreen);
     window.WIREFRAMER_TREEVIEW.render(mapView, mapGroups, state.current, setScreen);

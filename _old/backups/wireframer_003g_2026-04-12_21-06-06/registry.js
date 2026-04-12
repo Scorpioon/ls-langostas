@@ -13,9 +13,9 @@ window.WIREFRAMER_REGISTRY = {
     "create-set": { pageId: "create-set", label: "Create set", title: "Anadir set / mix" },
     "create-release": { pageId: "create-release", label: "Create release", title: "Anadir release / track" }
   },
-  version: "v0.0.3g",
-  packVersion: "v0.0.3g",
-  buildSummary: "project loaded - v0.0.3g - navigation truth pass + changelog sync hotfix",
+  version: "v0.0.3f",
+  packVersion: "v0.0.3f",
+  buildSummary: "project loaded - v0.0.3f - navigation truth pass + visible bump discipline",
   titleMap: {
     home: "Inicio / Portada de ciudad",
     discover: "Descubrir",
@@ -128,8 +128,8 @@ window.WIREFRAMER_REGISTRY = {
   changelog: {
     summary: "Navigation truth pass: route current, open paths and app map now tell different but coherent truths.",
     blocks: [
-      { title: "Closeout v0.0.3g", items: [
-        "Visible version bump synced across title, summary, footer, registry and changelog.",
+      { title: "Closeout v0.0.3f", items: [
+        "Visible version bump synced across title, summary, footer and registry.",
         "Route current now reflects structural hierarchy instead of available actions.",
         "Open paths remain visible but are separated from route current.",
         "Route-up shares the same breadcrumb truth as route current.",
@@ -138,7 +138,7 @@ window.WIREFRAMER_REGISTRY = {
       { title: "Checks", items: [
         "Verify route current remains stable while open paths vary by screen.",
         "Verify route-up goes to breadcrumb parent.",
-        "Verify footer WF and PACK no longer show stale versions."
+        "Verify footer WF and PACK no longer show old versions."
       ]}
     ]
   }
