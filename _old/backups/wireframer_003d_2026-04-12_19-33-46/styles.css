@@ -278,5 +278,3 @@ a.fake-link{color:inherit;text-decoration:none}.interactive{position:relative;tr
   box-shadow:0 0 0 1px #111 inset;
   font-weight:700;
 }
-/* WIREFRAMER FEATURE: PAGE NOTE FIX + ROUTE UP + CHANGELOG SYNC v0.0.3d */
-.route-mini-btn[aria-label="Subir un nivel"] i::before{}

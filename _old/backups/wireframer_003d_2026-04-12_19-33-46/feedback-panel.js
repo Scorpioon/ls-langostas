@@ -1,5 +1,5 @@
 (() => {
-  const STORAGE_KEY = "wireframer.feedback.v0.0.3d";
+  const STORAGE_KEY = "wireframer.feedback.v0.0.3c";
 
   function loadState() {
     try {
@@ -59,8 +59,8 @@
   function getCurrentPageId() {
     const fromApp = document.getElementById("app")?.dataset?.pageId;
     if (fromApp) return fromApp;
-    const fromShell = document.getElementById("desktopShell")?.dataset?.currentPageId;
-    if (fromShell) return fromShell;
+    const fromKpi = document.getElementById("currentScreenKpi")?.textContent?.trim();
+    if (fromKpi) return fromKpi;
     return "unknown";
   }
 
@@ -70,13 +70,6 @@
     const fromKpi = document.getElementById("currentScreenKpi")?.textContent?.trim();
     if (fromKpi) return fromKpi;
     return "Unknown page";
-  }
-
-  function bindInput(element, handler) {
-    if (!element) return;
-    if (element.dataset.boundFeedback === "1") return;
-    element.dataset.boundFeedback = "1";
-    element.addEventListener("input", handler);
   }
 
   function render(state) {
@@ -91,27 +84,22 @@
     if (globalInput && document.activeElement !== globalInput) globalInput.value = state.globalNote || "";
     if (pageInput && document.activeElement !== pageInput) pageInput.value = state.pageNotesByPageId?.[pageId] || "";
 
-    bindInput(globalInput, (event) => {
+    globalInput?.addEventListener("input", (event) => {
       state.globalNote = event.target.value;
       saveState(state);
     });
 
-    bindInput(pageInput, (event) => {
-      const livePageId = getCurrentPageId();
-      state.pageNotesByPageId[livePageId] = event.target.value;
+    pageInput?.addEventListener("input", (event) => {
+      state.pageNotesByPageId[pageId] = event.target.value;
       saveState(state);
     });
 
-    const closeBtn = document.getElementById("feedbackCloseBtn");
-    if (closeBtn && closeBtn.dataset.boundFeedback !== "1") {
-      closeBtn.dataset.boundFeedback = "1";
-      closeBtn.addEventListener("click", () => {
-        state.feedbackVisible = false;
-        saveState(state);
-        render(state);
-        document.getElementById("toggleFeedbackBtn")?.classList.remove("active");
-      });
-    }
+    document.getElementById("feedbackCloseBtn")?.addEventListener("click", () => {
+      state.feedbackVisible = false;
+      saveState(state);
+      render(state);
+      document.getElementById("toggleFeedbackBtn")?.classList.remove("active");
+    }, { once: true });
   }
 
   window.WIREFRAMER_FEEDBACK = {

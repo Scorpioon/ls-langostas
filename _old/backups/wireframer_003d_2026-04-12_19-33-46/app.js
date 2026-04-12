@@ -55,16 +55,6 @@
     sidebarChangelogPanel.classList.toggle("hidden", state.sidebarView !== "changelog");
   }
 
-  function getParentRoute(screen) {
-    const routeGroups = window.WIREFRAMER_REGISTRY.routeView[screen] || [];
-    for (const group of routeGroups) {
-      if (Array.isArray(group.items) && group.items.length > 0) {
-        return group.items[0][0];
-      }
-    }
-    return "home";
-  }
-
   function applyPageIdentity(screen) {
     const meta = window.WIREFRAMER_REGISTRY.pageMeta?.[screen] || { pageId: screen, title: "Wireframe" };
     app.dataset.pageId = meta.pageId;
@@ -119,7 +109,7 @@
     updateFooter();
   }
 
-  function goBackHistory() {
+  function goBack() {
     if (state.history.length > 1) {
       state.history.pop();
       const prev = state.history.pop() || "home";
@@ -127,15 +117,6 @@
     } else {
       setScreen("home", false);
     }
-  }
-
-  function goUpRoute() {
-    const parent = getParentRoute(state.current);
-    if (parent === state.current) {
-      setScreen("home");
-      return;
-    }
-    setScreen(parent);
   }
 
   function setScreen(screen, push = true) {
@@ -161,9 +142,8 @@
 
   navBtns.forEach(btn => btn.addEventListener("click", () => setScreen(btn.dataset.nav)));
   centerViewBtn.addEventListener("click", centerView);
-  routeBackBtn.addEventListener("click", goUpRoute);
+  routeBackBtn.addEventListener("click", goBack);
   routeHomeBtn.addEventListener("click", () => setScreen("home"));
-  document.getElementById("backBtn")?.addEventListener("click", goBackHistory);
 
   document.addEventListener("wheel", (e) => {
     const insideTool = desktopShell.contains(e.target);
@@ -181,6 +161,7 @@
     updateFooter();
   }));
 
+  backBtn.addEventListener("click", goBack);
   homeShortcut.addEventListener("click", () => setScreen("home"));
   toggleHintsBtn.addEventListener("click", () => {
     state.focusMode = !state.focusMode;

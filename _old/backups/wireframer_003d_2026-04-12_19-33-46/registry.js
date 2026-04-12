@@ -13,9 +13,9 @@ window.WIREFRAMER_REGISTRY = {
     "create-set": { pageId: "create-set", label: "Create set", title: "Anadir set / mix" },
     "create-release": { pageId: "create-release", label: "Create release", title: "Anadir release / track" }
   },
-  version: "v0.0.3d",
-  packVersion: "v0.0.3d",
-  buildSummary: "project loaded - v0.0.3d - page note fix + route up + changelog sync",
+  version: "v0.0.3c",
+  packVersion: "v0.0.3c",
+  buildSummary: "project loaded - v0.0.3c - feedback kernel + ids baseline",
   titleMap: {
     home: "Inicio / Portada de ciudad",
     discover: "Descubrir",
