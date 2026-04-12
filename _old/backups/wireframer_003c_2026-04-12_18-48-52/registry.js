@@ -1,21 +1,7 @@
 window.WIREFRAMER_REGISTRY = {
-  pageMeta: {
-    home: { pageId: "home", label: "Home", title: "Inicio / Portada de ciudad" },
-    discover: { pageId: "discover", label: "Discover", title: "Descubrir" },
-    collective: { pageId: "collective", label: "Collective", title: "Perfil colectivo" },
-    event: { pageId: "event", label: "Event", title: "Detalle evento" },
-    dj: { pageId: "dj", label: "DJ", title: "Perfil DJ" },
-    artist: { pageId: "artist", label: "Artist", title: "Perfil artista" },
-    saved: { pageId: "saved", label: "Saved", title: "Guardado" },
-    activity: { pageId: "activity", label: "Activity", title: "Actividad" },
-    profile: { pageId: "profile", label: "Profile", title: "Perfil" },
-    "create-event": { pageId: "create-event", label: "Create event", title: "Crear evento" },
-    "create-set": { pageId: "create-set", label: "Create set", title: "Anadir set / mix" },
-    "create-release": { pageId: "create-release", label: "Create release", title: "Anadir release / track" }
-  },
-  version: "v0.0.3c",
-  packVersion: "v0.0.3c",
-  buildSummary: "project loaded - v0.0.3c - feedback kernel + ids baseline",
+  version: "v0.0.2g",
+  packVersion: "v0.0.2g",
+  buildSummary: "proyecto cargado · v0.0.2g · polish closeout · phase 1 baseline",
   titleMap: {
     home: "Inicio / Portada de ciudad",
     discover: "Descubrir",

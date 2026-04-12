@@ -1,10 +1,10 @@
 window.WIREFRAMER_TREEVIEW = {
   render(treeView, groups, current, onSelect) {
     treeView.innerHTML = groups.map(group => `
-      <div class="tree-group" data-group-label="${group.label}">
+      <div class="tree-group">
         <div class="tree-group-label">${group.label}</div>
-        ${group.items.map(([id, label, icon, level], index) => `
-          <button id="wf-tree-item-${id}" class="tree-item level-${level || 0} ${current === id ? "active" : ""}" data-tree-go="${id}" data-page-id="${id}" data-tree-index="${index}">
+        ${group.items.map(([id, label, icon, level]) => `
+          <button class="tree-item level-${level || 0} ${current === id ? "active" : ""}" data-tree-go="${id}">
             <span class="tree-icon"><i class="bi bi-${icon}"></i></span>
             <span class="tree-label-text">${label}</span>
           </button>

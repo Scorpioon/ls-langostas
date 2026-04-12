@@ -1,50 +1,32 @@
 (() => {
-  const STORAGE_KEY = "wireframer.feedback.v0.0.3a";
-  const DEFAULT_STATE = {
-    isOpen: false,
-    globalNote: "",
-    pageNotesByKey: {}
-  };
+  const STORAGE_KEY = "wireframer.feedback.v0.0.3c";
 
   function loadState() {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return { ...DEFAULT_STATE };
+      if (!raw) return { feedbackVisible: false, globalNote: "", pageNotesByPageId: {} };
       const parsed = JSON.parse(raw);
       return {
-        isOpen: !!parsed.isOpen,
+        feedbackVisible: !!parsed.feedbackVisible,
         globalNote: typeof parsed.globalNote === "string" ? parsed.globalNote : "",
-        pageNotesByKey: parsed.pageNotesByKey && typeof parsed.pageNotesByKey === "object" ? parsed.pageNotesByKey : {}
+        pageNotesByPageId: parsed.pageNotesByPageId && typeof parsed.pageNotesByPageId === "object" ? parsed.pageNotesByPageId : {}
       };
     } catch {
-      return { ...DEFAULT_STATE };
+      return { feedbackVisible: false, globalNote: "", pageNotesByPageId: {} };
     }
   }
 
-  function saveState() {
+  function saveState(nextState) {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(nextState));
     } catch {}
   }
 
-  function getCurrentScreenKey() {
-    const fromKpi = document.getElementById("currentScreenKpi")?.textContent?.trim();
-    if (fromKpi) return fromKpi.toLowerCase();
-    const fromTitle = document.getElementById("screenTitle")?.textContent?.trim();
-    if (fromTitle) return fromTitle.toLowerCase().replace(/\s+/g, "_");
-    return "unknown";
-  }
+  function ensureShell() {
+    let shell = document.getElementById("feedbackShell");
+    if (shell) return shell;
 
-  function getCurrentScreenLabel() {
-    const fromTitle = document.getElementById("screenTitle")?.textContent?.trim();
-    if (fromTitle) return fromTitle;
-    const fromKpi = document.getElementById("currentScreenKpi")?.textContent?.trim();
-    if (fromKpi) return fromKpi;
-    return "Pantalla no detectada";
-  }
-
-  function createShell() {
-    const shell = document.createElement("aside");
+    shell = document.createElement("aside");
     shell.id = "feedbackShell";
     shell.className = "feedback-shell";
     shell.innerHTML = `
@@ -53,20 +35,20 @@
           <div class="feedback-kicker">Feedback / Handoff</div>
           <div class="feedback-title">Kernel baseline</div>
         </div>
-        <button id="feedbackCloseBtn" class="feedback-close" aria-label="Cerrar panel">Ã—</button>
+        <button id="feedbackCloseBtn" class="feedback-close" aria-label="Close panel">x</button>
       </div>
       <div class="feedback-meta">
-        <div class="feedback-meta-line">Proyecto cargado: <strong>LOCALSCENE</strong></div>
-        <div class="feedback-meta-line">Pantalla actual: <span id="feedbackCurrentScreen" class="feedback-screen-pill"></span></div>
+        <div class="feedback-meta-line">Project loaded: <strong>LOCALSCENE</strong></div>
+        <div class="feedback-meta-line">Current page: <span id="feedbackCurrentScreen" class="feedback-screen-pill"></span></div>
       </div>
       <div class="feedback-body">
         <section class="feedback-card feedback-global">
           <div class="feedback-label">Global note</div>
-          <textarea id="feedbackGlobalNote" placeholder="Apuntes globales del proyecto o de la sesiÃ³n..."></textarea>
+          <textarea id="feedbackGlobalNote" placeholder="Global project or session notes..."></textarea>
         </section>
         <section class="feedback-card feedback-page">
           <div class="feedback-label">Page note</div>
-          <textarea id="feedbackPageNote" placeholder="Feedback de la pÃ¡gina actual..."></textarea>
+          <textarea id="feedbackPageNote" placeholder="Notes for the current page..."></textarea>
         </section>
       </div>
     `;
@@ -74,87 +56,55 @@
     return shell;
   }
 
-  function setOpen(nextOpen) {
-    state.isOpen = !!nextOpen;
-    shell.classList.toggle("is-open", state.isOpen);
-    document.querySelector(".desktop-shell")?.classList.toggle("has-feedback-open", state.isOpen);
-    toggleButton?.classList.toggle("active", state.isOpen);
-    saveState();
+  function getCurrentPageId() {
+    const fromApp = document.getElementById("app")?.dataset?.pageId;
+    if (fromApp) return fromApp;
+    const fromKpi = document.getElementById("currentScreenKpi")?.textContent?.trim();
+    if (fromKpi) return fromKpi;
+    return "unknown";
   }
 
-  function renderMeta() {
-    const label = getCurrentScreenLabel();
+  function getCurrentScreenLabel() {
+    const fromTitle = document.getElementById("screenTitle")?.textContent?.trim();
+    if (fromTitle) return fromTitle;
+    const fromKpi = document.getElementById("currentScreenKpi")?.textContent?.trim();
+    if (fromKpi) return fromKpi;
+    return "Unknown page";
+  }
+
+  function render(state) {
+    const shell = ensureShell();
+    const globalInput = document.getElementById("feedbackGlobalNote");
+    const pageInput = document.getElementById("feedbackPageNote");
     const pill = document.getElementById("feedbackCurrentScreen");
-    if (pill) pill.textContent = label;
-  }
+    const pageId = getCurrentPageId();
 
-  function renderNotes() {
-    const globalInput = document.getElementById("feedbackGlobalNote");
-    const pageInput = document.getElementById("feedbackPageNote");
-    if (!globalInput || !pageInput) return;
+    shell.classList.toggle("is-open", !!state.feedbackVisible);
+    if (pill) pill.textContent = getCurrentScreenLabel();
+    if (globalInput && document.activeElement !== globalInput) globalInput.value = state.globalNote || "";
+    if (pageInput && document.activeElement !== pageInput) pageInput.value = state.pageNotesByPageId?.[pageId] || "";
 
-    if (document.activeElement !== globalInput) {
-      globalInput.value = state.globalNote;
-    }
-
-    const key = getCurrentScreenKey();
-    const note = state.pageNotesByKey[key] || "";
-    if (document.activeElement !== pageInput) {
-      pageInput.value = note;
-    }
-
-    renderMeta();
-  }
-
-  function bindInputs() {
-    const globalInput = document.getElementById("feedbackGlobalNote");
-    const pageInput = document.getElementById("feedbackPageNote");
-    if (!globalInput || !pageInput) return;
-
-    globalInput.addEventListener("input", (event) => {
+    globalInput?.addEventListener("input", (event) => {
       state.globalNote = event.target.value;
-      saveState();
+      saveState(state);
     });
 
-    pageInput.addEventListener("input", (event) => {
-      const key = getCurrentScreenKey();
-      state.pageNotesByKey[key] = event.target.value;
-      saveState();
+    pageInput?.addEventListener("input", (event) => {
+      state.pageNotesByPageId[pageId] = event.target.value;
+      saveState(state);
     });
+
+    document.getElementById("feedbackCloseBtn")?.addEventListener("click", () => {
+      state.feedbackVisible = false;
+      saveState(state);
+      render(state);
+      document.getElementById("toggleFeedbackBtn")?.classList.remove("active");
+    }, { once: true });
   }
 
-  function bindButtons() {
-    toggleButton?.addEventListener("click", () => setOpen(!state.isOpen));
-    document.getElementById("feedbackCloseBtn")?.addEventListener("click", () => setOpen(false));
-  }
-
-  function watchScreenChanges() {
-    const targets = [
-      document.getElementById("currentScreenKpi"),
-      document.getElementById("screenTitle"),
-      document.getElementById("app")
-    ].filter(Boolean);
-
-    const observer = new MutationObserver(() => {
-      renderNotes();
-    });
-
-    targets.forEach((node) => {
-      observer.observe(node, {
-        childList: true,
-        characterData: true,
-        subtree: true
-      });
-    });
-  }
-
-  const state = loadState();
-  const toggleButton = document.getElementById("toggleFeedbackBtn");
-  const shell = createShell();
-
-  bindInputs();
-  bindButtons();
-  watchScreenChanges();
-  renderNotes();
-  setOpen(state.isOpen);
+  window.WIREFRAMER_FEEDBACK = {
+    loadState,
+    saveState,
+    render
+  };
 })();

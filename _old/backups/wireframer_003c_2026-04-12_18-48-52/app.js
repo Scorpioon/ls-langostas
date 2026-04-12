@@ -6,7 +6,6 @@
   const mapView = document.getElementById("mapView");
   const homeShortcut = document.getElementById("homeShortcut");
   const toggleHintsBtn = document.getElementById("toggleHintsBtn");
-  const toggleFeedbackBtn = document.getElementById("toggleFeedbackBtn");
   const routeBackBtn = document.getElementById("routeBackBtn");
   const routeHomeBtn = document.getElementById("routeHomeBtn");
   const breadcrumbTrail = document.getElementById("breadcrumbTrail");
@@ -53,26 +52,6 @@
     sidebarRoutePanel.classList.toggle("hidden", state.sidebarView !== "route");
     sidebarMapPanel.classList.toggle("hidden", state.sidebarView !== "map");
     sidebarChangelogPanel.classList.toggle("hidden", state.sidebarView !== "changelog");
-  }
-
-  function applyPageIdentity(screen) {
-    const meta = window.WIREFRAMER_REGISTRY.pageMeta?.[screen] || { pageId: screen, title: "Wireframe" };
-    app.dataset.pageId = meta.pageId;
-    desktopShell.dataset.currentPageId = meta.pageId;
-    title.dataset.pageId = meta.pageId;
-  }
-
-  function saveFeedbackState() {
-    window.WIREFRAMER_FEEDBACK.saveState({
-      feedbackVisible: state.feedbackVisible,
-      globalNote: state.globalNote,
-      pageNotesByPageId: state.pageNotesByPageId
-    });
-  }
-
-  function renderFeedback() {
-    window.WIREFRAMER_FEEDBACK.render(state);
-    toggleFeedbackBtn.classList.toggle("active", !!state.feedbackVisible);
   }
 
   function wireEvents() {
@@ -135,8 +114,6 @@
     applySidebarView();
     applyFocusMode();
     applyZoom();
-    applyPageIdentity(screen);
-    renderFeedback();
     updateFooter();
   }
 
@@ -167,12 +144,6 @@
     state.focusMode = !state.focusMode;
     applyFocusMode();
     updateFooter();
-  });
-
-  toggleFeedbackBtn.addEventListener("click", () => {
-    state.feedbackVisible = !state.feedbackVisible;
-    saveFeedbackState();
-    renderFeedback();
   });
 
   setScreen("home", false);
